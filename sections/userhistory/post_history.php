@@ -70,9 +70,9 @@ if ($ShowGrouped) {
 				p.TopicID,
 				t.Title,
 				t.LastPostID,
-				l.PostID AS LastRead,
 				t.IsLocked,
-				t.IsSticky
+				t.IsSticky,
+				l.PostID AS LastRead
 			FROM forums_posts AS p
 				LEFT JOIN users_main AS um ON um.ID = p.AuthorID
 				LEFT JOIN users_info AS ui ON ui.UserID = p.AuthorID
@@ -104,14 +104,14 @@ if ($ShowGrouped) {
 			ed.Username,
 			p.TopicID,
 			t.Title,
-			t.LastPostID,';
+			t.LastPostID,
+			t.IsLocked,
+			t.IsSticky,';
 	if ($UserID == $LoggedUser['ID']) {
 		$sql .= '
-			l.PostID AS LastRead,';
+			l.PostID AS LastRead';
 	}
 	$sql .= "
-			t.IsLocked,
-			t.IsSticky
 		FROM forums_posts AS p
 			LEFT JOIN users_main AS um ON um.ID = p.AuthorID
 			LEFT JOIN users_info AS ui ON ui.UserID = p.AuthorID
@@ -213,7 +213,7 @@ if (empty($Results)) {
 	</div>
 <?
 	$QueryID = $DB->get_query_id();
-	while (list($PostID, $AddedTime, $Body, $EditedUserID, $EditedTime, $EditedUsername, $TopicID, $ThreadTitle, $LastPostID, $LastRead, $Locked, $Sticky) = $DB->next_record()) {
+	while (list($PostID, $AddedTime, $Body, $EditedUserID, $EditedTime, $EditedUsername, $TopicID, $ThreadTitle, $LastPostID, $Locked, $Sticky, $LastRead) = $DB->next_record()) {
 ?>
 	<table class="forum_post vertical_margin<?=!Users::has_avatars_enabled() ? ' noavatar' : '' ?>" id="post<?=$PostID ?>">
 		<colgroup>
