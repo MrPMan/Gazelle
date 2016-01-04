@@ -14,8 +14,7 @@ class Permissions {
 		return (
 			isset(G::$LoggedUser['Permissions'][$PermissionName])
 			&& G::$LoggedUser['Permissions'][$PermissionName]
-			&& (G::$LoggedUser['Class'] >= $MinClass
-				|| G::$LoggedUser['EffectiveClass'] >= $MinClass
+			&& (G::$LoggedUser['EffectiveClass'] >= $MinClass
 				|| $Override)
 			) ? true : false;
 	}
