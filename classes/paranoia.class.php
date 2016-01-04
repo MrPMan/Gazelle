@@ -80,7 +80,7 @@ function check_paranoia($Property, $Paranoia, $UserClass, $UserID = false) {
 			case 'ratio':
 			case 'uploaded':
 			case 'lastseen':
-				if (check_perms('users_mod', $UserClass))
+				if (check_perms('users_mod'))
 					return PARANOIA_OVERRIDDEN;
 				break;
 			case 'snatched': case 'snatched+':
