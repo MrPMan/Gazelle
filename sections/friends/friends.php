@@ -30,13 +30,14 @@ $DB->query("
 		m.Username,
 		m.Uploaded,
 		m.Downloaded,
-		m.PermissionID,
+		p.Level,
 		m.Paranoia,
 		m.LastAccess,
 		i.Avatar
 	FROM friends AS f
 		JOIN users_main AS m ON f.FriendID = m.ID
 		JOIN users_info AS i ON f.FriendID = i.UserID
+		LEFT JOIN permissions AS p ON p.ID = m.PermissionID
 	WHERE f.UserID = '$UserID'
 	ORDER BY Username
 	LIMIT $Limit");
